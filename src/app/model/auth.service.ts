@@ -14,4 +14,8 @@ export class AuthService {
     get authenticated(): boolean {
         return this.datasource.auth_token != null;
     }
+
+    clear() {
+        this.datasource.auth_token = null;
+    }
 }
