@@ -11,9 +11,6 @@ import { RouterModule } from "@angular/router";
 import { StoreFirstGuard } from "./storeFirst.guard";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,10 +19,16 @@ import { StoreFirstGuard } from "./storeFirst.guard";
       { path: "store", component: StoreComponent, canActivate: [StoreFirstGuard]},
       { path: "cart", component: CartDetailComponent, canActivate: [StoreFirstGuard]},
       { path: "checkout", component: CheckoutComponent, canActivate: [StoreFirstGuard]},
+      //Angular 6 syntax is => { path: "admin", loadChildren: "./admin/admin.module#AdminModule", canActivate: [StoreFirstGuard]}
+      //Angular 9 syntax changed this to the below statement.
+      { path: "admin", loadChildren: () => import("./admin/admin.module").then(mod => mod.AdminModule), canActivate: [StoreFirstGuard]},
       { path: "**", redirectTo: "/store" }
     ])
   ],
   providers: [StoreFirstGuard],
+  declarations: [
+    AppComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
