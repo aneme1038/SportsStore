@@ -9,6 +9,8 @@ import { CheckoutComponent } from "./store/checkout.component";
 import { CartDetailComponent } from "./store/cartDetail.component";
 import { RouterModule } from "@angular/router";
 import { StoreFirstGuard } from "./storeFirst.guard";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { StoreFirstGuard } from "./storeFirst.guard";
       //Angular 9 syntax changed this to the below statement.
       { path: "admin", loadChildren: () => import("./admin/admin.module").then(mod => mod.AdminModule), canActivate: [StoreFirstGuard]},
       { path: "**", redirectTo: "/store" }
-    ])
+    ]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [StoreFirstGuard],
   declarations: [
