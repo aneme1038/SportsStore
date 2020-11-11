@@ -57,6 +57,10 @@ export class RestDataSource {
         return this.http.delete<Order>(`${this.baseUrl}orders/${id}`, this.getOptions());
     }
 
+    updateOrder(order: Order): Observable<Order> {
+        return this.http.put<Order>(`${this.baseUrl}orders/${order.id}`, this.getOptions());
+    }
+
     private getOptions() {
         return {
             headers: new HttpHeaders({
