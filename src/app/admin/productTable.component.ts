@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { Product } from "../model/product.model";
-import { ProductRepository } from "../model/product.repository";
+import { Component } from '@angular/core';
+import { Product } from '../model/product.model';
+import { ProductRepository } from '../model/product.repository';
 
 @Component({
-    templateUrl: "productTable.component.html"
+    templateUrl: 'productTable.component.html'
 })
-export class ProductTableComponent { 
+export class ProductTableComponent {
     constructor(private repository: ProductRepository) { }
 
     getProducts(): Product[] {
@@ -15,4 +15,4 @@ export class ProductTableComponent {
     deleteProduct(id: number) {
         this.repository.deleteProduct(id);
     }
-} 
+}

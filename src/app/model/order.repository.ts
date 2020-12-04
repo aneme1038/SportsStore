@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Order } from "./order.model";
-//import { StaticDataSource } from "./static.datasource";
-import { RestDataSource } from "./rest.datasource";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from './order.model';
+// import { StaticDataSource } from "./static.datasource";
+import { RestDataSource } from './rest.datasource';
 
 @Injectable()
 export class OrderRepository {
     private orders: Order[] = [];
-    private loaded: boolean = false;
+    private loaded = false;
 
     constructor(private dataSource: RestDataSource) {}
 
@@ -24,19 +24,20 @@ export class OrderRepository {
         return this.orders;
     }
 
-    saveOrder(order: Order): Observable<Order>{
+    saveOrder(order: Order): Observable<Order> {
         return this.dataSource.saveOrder(order);
     }
 
     updateOrder(order: Order) {
+        // tslint:disable-next-line: no-shadowed-variable
         this.dataSource.updateOrder(order).subscribe(order => {
-            this.orders.splice(this.orders.findIndex(o => o.id == order.id), 1, order);
+            this.orders.splice(this.orders.findIndex(o => o.id === order.id), 1, order);
         });
     }
 
     deleteOrder(id: number) {
         this.dataSource.deleteOrder(id).subscribe(order => {
-            this.orders.splice(this.orders.findIndex(o => id == o.id));
+            this.orders.splice(this.orders.findIndex(o => id === o.id));
         });
     }
 

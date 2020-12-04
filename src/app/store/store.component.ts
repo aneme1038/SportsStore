@@ -1,12 +1,13 @@
-import { Component } from "@angular/core";
-import { Product }  from "../model/product.model";
-import { ProductRepository } from "../model/product.repository";
-import { Cart } from "../model/cart.model";
-import { Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { Product } from '../model/product.model';
+import { ProductRepository } from '../model/product.repository';
+import { Cart } from '../model/cart.model';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: "store",
-    templateUrl: "store.component.html"
+    // tslint:disable-next-line: component-selector
+    selector: 'store',
+    templateUrl: 'store.component.html'
 })
 export class StoreComponent {
     public selectedCategory = null;
@@ -16,7 +17,7 @@ export class StoreComponent {
     constructor(private repository: ProductRepository, private cart: Cart, private router: Router) { }
 
     get products(): Product[] {
-        let pageIndex = (this.selectedPage - 1) * this.productsPerPage
+        const pageIndex = (this.selectedPage - 1) * this.productsPerPage;
         return this.repository.getProducts(this.selectedCategory).slice(pageIndex, pageIndex + this.productsPerPage);
     }
 
@@ -32,14 +33,14 @@ export class StoreComponent {
         this.selectedPage = newPage;
     }
 
-    changePageSize(newSize: number){
+    changePageSize(newSize: number) {
         this.productsPerPage = Number(newSize);
         this.changePage(1);
     }
 
     get pageCount(): number {
         return Math.ceil(this.repository
-            .getProducts(this.selectedCategory).length / this.productsPerPage)
+            .getProducts(this.selectedCategory).length / this.productsPerPage);
     }
 
     // get pageNumbers(): number[]{
@@ -47,9 +48,9 @@ export class StoreComponent {
     //         .getProducts(this.selectedCategory).length / this.productsPerPage))
     //             .fill(0).map((x, i) => i + 1);
     // }
-    
+
     addProductToCart(product: Product) {
         this.cart.addLine(product);
-        this.router.navigateByUrl("/cart");
+        this.router.navigateByUrl('/cart');
     }
 }
